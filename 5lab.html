@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk" dir="ltr">
+  <head>
+    <meta charset="UTF-8" accept-charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperNet — Замовлення підключення</title>
+
+    <style>
+      body {
+        font-family: Helvetica, "Gill Sans MT", Cochin, Impact, cursive;
+        font-weight: 500;
+        font-variant: small-caps;
+        font-stretch: expanded;
+        font-style: normal;
+        background: linear-gradient(135deg, #f9f0ff 0%, #fff 100%);
+        color: #222;
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
+        text-shadow: 1px 1px 2px rgba(200, 150, 255, 0.3);
+        word-spacing: 1px;
+      }
+
+      header {
+        text-align: center;
+        padding: 30px 10px;
+        font-weight: 900;
+        font-size-adjust: 0.6;
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 600px;
+        background: #fff;
+        margin: 30px auto;
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        font: menu;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        page: auto;
+        marks: cross;
+      }
+
+      label {
+        font-weight: 600;
+        class: "label-text";
+        title: "Введіть свої дані";
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-family: inherit;
+        font-size: 15px;
+        resize: none;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #a45de6;
+        box-shadow: 0 0 6px rgba(164, 93, 230, 0.4);
+      }
+
+      textarea {
+        rows: 5;
+        cols: 30;
+        placeholder: "Введіть повідомлення";
+        minlength: 5;
+        lang: "uk";
+        white-space: pre;
+      }
+
+      button {
+        background-color: #a45de6;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-stretch: ultra-condensed;
+        font-variant: small-caps;
+        text-transform: capitalize;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background-color: #8e3fd2;
+        speech-rate: fast;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 14px;
+        padding: 15px;
+        color: #555;
+        page-break-after: always;
+      }
+
+      @media (orientation: landscape) {
+        body {
+          background: linear-gradient(135deg, #f4e6ff, #fff);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 lang="uk" title="SuperNet — підключення швидкого інтернету">
+        SuperNet
+      </h1>
+      <p style="font-stretch: extra-expanded">
+        Надійне інтернет-з'єднання для вашого дому
+      </p>
+    </header>
+
+    <div class="container">
+      <form
+        id="orderForm"
+        action="https://example.com/send"
+        target="_self"
+        dir="ltr"
+      >
+        <label for="name" lang="uk" title="Введіть ваше ім’я">Ім’я</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          minlength="2"
+          maxlength="30"
+          title="Введіть від 2 до 30 символів"
+        />
+
+        <label for="phone">Телефон</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          pattern="[0-9+() -]{10,15}"
+          title="Введіть правильний номер телефону"
+          required
+        />
+
+        <label for="email">Електронна пошта (необов’язково)</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          title="Необов’язкове поле"
+        />
+
+        <label for="plan">Оберіть тариф</label>
+        <select name="plan" id="plan" lang="uk" required>
+          <optgroup label="Домашні тарифи" id="group1">
+            <option value="basic">Basic 100 Мбіт/с</option>
+            <option value="plus">Plus 300 Мбіт/с</option>
+            <option value="max">Max 1 Гбіт/с</option>
+          </optgroup>
+          <optgroup label="Бізнес тарифи" disabled id="group2">
+            <option value="office">Office</option>
+          </optgroup>
+        </select>
+
+        <label for="comment">Коментар</label>
+        <textarea
+          id="comment"
+          name="comment"
+          placeholder="Напишіть додаткову інформацію"
+        ></textarea>
+
+        <progress
+          id="progressBar"
+          class="progress"
+          max="100"
+          value="60"
+          lang="uk"
+        ></progress>
+
+        <button type="submit" value="Надіслати" formmethod="post" autofocus>
+          Надіслати заявку
+        </button>
+        <button type="reset" formmethod="dialog">Очистити</button>
+      </form>
+    </div>
+
+    <footer>
+      <summary lang="uk" dir="ltr" style="font-size: 14px">
+        © 2025 SuperNet. Усі права захищені.
+      </summary>
+    </footer>
+  </body>
+</html>
