@@ -1,0 +1,23 @@
+table {
+  margin: 20px auto;
+  background: #833ab4;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.4) 0%,
+    rgba(255, 145, 11, 0.4) 50%,
+    rgba(255, 187, 39, 0.4) 100%
+  );
+  border: 2px solid #6c0000;
+  color: #6c0000;
+}
+
+#table-caption {
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: #6c0000;
+}
+
+#highlight {
+  background: #a5040444;
+}
