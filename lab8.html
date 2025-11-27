@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Лабораторна 6 — Canvas</title>
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    canvas {
+      background: white;
+      display: block;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.1);
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Лабораторна робота №6 — Canvas</h2>
+<canvas id="myCanvas" width="900" height="520"></canvas>
+
+<script>
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+
+// Система координат
+const offsetX = 120;
+const offsetY = 260;
+const scale = 60;
+
+let angle = 0;
+
+// Рисуем оси
+function drawAxes() {
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 3;
+
+  // X
+  ctx.beginPath();
+  ctx.moveTo(60, 260);
+  ctx.lineTo(820, 260);
+  ctx.stroke();
+
+  // Y
+  ctx.beginPath();
+  ctx.moveTo(120, 40);
+  ctx.lineTo(120, 480);
+  ctx.stroke();
+
+  // Метки
+  ctx.fillStyle = "black";
+  ctx.font = "12px Arial";
+  const xs = [0,1,2,3,4,5,6];
+  for(let i=0;i<xs.length;i++){
+    ctx.fillText(xs[i], offsetX + xs[i]*scale, offsetY + 20);
+  }
+  const ys = [2,1,-1,-2];
+  for(let i=0;i<ys.length;i++){
+    ctx.fillText(ys[i], offsetX-20, offsetY - ys[i]*scale);
+  }
+}
+
+// Рисуем квадрат
+function drawRect(x,y,w,h,color, skew=0){
+  ctx.save();
+  ctx.translate(offsetX + x*scale, offsetY - y*scale);
+  if(skew){
+    ctx.transform(1,0,Math.sin(angle*skew),1,0,0);
+  }
+  ctx.fillStyle = color;
+  ctx.fillRect(0, -h*scale, w*scale, h*scale);
+  ctx.restore();
+}
+
+// Рисуем круг
+function drawCircle(x,y,r,color, moveX=0, moveScale=0){
+  ctx.save();
+  ctx.translate(offsetX + x*scale + Math.sin(angle*moveScale)*scale*moveX, offsetY - y*scale);
+  ctx.beginPath();
+  ctx.arc(0,0,r*scale,0,2*Math.PI);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+// Рисуем треугольник
+function drawTriangle(vertices,color){
+  ctx.save();
+  ctx.translate(offsetX + 3*scale, offsetY - (-0.6666*scale));
+  ctx.rotate(angle);
+  ctx.beginPath();
+  ctx.moveTo((vertices[0][0]-3)*scale, -vertices[0][1]*scale + 0.6666*scale);
+  ctx.lineTo((vertices[1][0]-3)*scale, -vertices[1][1]*scale + 0.6666*scale);
+  ctx.lineTo((vertices[2][0]-3)*scale, -vertices[2][1]*scale + 0.6666*scale);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+// Анимация
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  drawAxes();
+
+  // Квадраты
+  drawRect(0,1,1,1,"#1d6fa5");
+  drawRect(0,-2,1,1,"#1d6fa5");
+  drawRect(5,1,1,1,"#1d6fa5");
+  drawRect(5,-2,1,1,"#1d6fa5",0.3); // skewX
+  drawRect(4,-1,1,1,"#1d6fa5");
+  drawRect(1,-1,1,1,"#1d6fa5");
+
+  // Круги
+  const colors = ["#248fff", "#ff6b6b", "#ffd66b"];
+  const colorIndex = Math.floor((angle*2)%3);
+  drawCircle(2,1,1,colors[colorIndex]);
+  drawCircle(4,1,1,"#1d6fa5",0,1); // двигающийся
+  drawCircle(4.5,-1.5,0.5,"#1d6fa5",0,0); // масштабируемый
+  ctx.save();
+  ctx.translate(offsetX + 4.5*scale, offsetY - (-1.5*scale));
+  let scaleVal = 1 + 0.6*Math.abs(Math.sin(angle*2));
+  ctx.scale(scaleVal,scaleVal);
+  ctx.beginPath();
+  ctx.arc(0,0,0.5*scale,0,2*Math.PI);
+  ctx.fillStyle = "#1d6fa5";
+  ctx.fill();
+  ctx.restore();
+
+  // Треугольник
+  drawTriangle([[3,0],[2,-2],[4,-2]],"#1d6fa5");
+
+  angle += 0.02;
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
