@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BOM / DOM інформація</title>
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+
+    <script>
+      function runTask() {
+        let textarea = document.getElementById("out");
+
+        let data = "";
+
+        // 3.1 Тип браузера
+        data += "Браузер: " + navigator.userAgent + "\n";
+
+        // 3.2 Історія звернень
+        data += "Кількість записів в історії: " + history.length + "\n";
+
+        // 3.3 Властивості сторінки (location)
+        data += "URL: " + location.href + "\n";
+        data += "Протокол: " + location.protocol + "\n";
+        data += "Хост: " + location.host + "\n";
+
+        // 3.4 Час звернення
+        data += "Час відкриття сторінки: " + new Date().toLocaleString() + "\n";
+
+        // 3.5 Всі властивості об’єкту document
+        data += "\nВластивості document:\n";
+        for (let prop in document) {
+          data += prop + "\n";
+        }
+
+        // 3.6 Кількість форм на сторінці
+        data += "\nКількість форм: " + document.forms.length + "\n";
+
+        // 3.7 Змінюємо вміст 2-х фреймів
+        document.getElementById("f1").innerHTML = "Фрейм 1 змінено!";
+        document.getElementById("f2").innerHTML = "Фрейм 2 змінено!";
+        data += "Фрейми оновлено ✅\n";
+
+        // 3.8 Вміст масиву links (всього document.links)
+        data += "\nПосилання (links):\n";
+        for (let i = 0; i < document.links.length; i++) {
+          data += document.links[i].href + "\n";
+        }
+
+        // 3.9 Вміст images
+        data += "\nЗображення (images): " + document.images.length + "\n";
+
+        // 3.10 Перелік елементів форми
+        data += "\nЕлементи форми:\n";
+        if (document.forms[0]) {
+          for (let el of document.forms[0].elements) {
+            data += el.tagName + " | name=" + el.name + "\n";
+          }
+        } else {
+          data += "Форм немає\n";
+        }
+
+        // 3.11 Розробник
+        data += "\nРозробник: LINA\n";
+
+        textarea.value = data;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>BOM / DOM інформація</h1>
+
+    <div id="f1" style="border: 1px solid #000; padding: 10px; width: 200px">
+      Frame 1
+    </div>
+    <div
+      id="f2"
+      style="
+        border: 1px solid #000;
+        padding: 10px;
+        width: 200px;
+        margin-top: 10px;
+      "
+    >
+      Frame 2
+    </div>
+
+    <br />
+
+    <form>
+      <button type="button" onclick="runTask()">Run Task</button><br /><br />
+      <textarea
+        id="out"
+        rows="15"
+        cols="50"
+        placeholder="Тут буде результат"
+      ></textarea>
+    </form>
+
+    <a href="#test">Тестове посилання</a><br />
+    <img src="Ы.jpg" alt="test-img" />
+  </body>
+</html>
